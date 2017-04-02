@@ -1,0 +1,19 @@
+{
+  "name": "Facebook emojis shortcuts",
+  "description": "Permit emojis shortcuts to access to emojis into a conversation",
+  "version": "0.1",
+  "permissions": [
+    "tabs","<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"         // pay attention to this line
+    }
+  ],
+  "manifest_version":2
+}
