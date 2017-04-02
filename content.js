@@ -1,24 +1,35 @@
 //alert("hello");
 //document.body.style.background = 'yellow';
 // register the handler
-document.body.addEventListener('keyup', doc_keyUp, false);
+document.body.addEventListener('keydown', doc_keyDown);
 
-function doc_keyUp(keys) {
-    if (keys.ctrlKey && keys.keyCode == 69) {
+function doc_keyDown(keys) {
+    //keys.preventDefault();
+    console.log(keys);
+    if (keys.altKey && keys.keyCode == 69) {
+        keys.preventDefault();
         openEmojiForCurrentConversation();
-    } else if (keys.keyCode == 90 || keys.keyCode == 83 || keys.keyCode == 81 || keys.keyCode == 68){
+    } else if (keys.keyCode >= 37 &&  keys.keyCode <= 40){
         var focused = document.activeElement;
         if(focused.attributes.getNamedItem("aria-label") !== null
             && focused.attributes.getNamedItem("aria-label").textContent == "Choisir un emoji"){
-            console.log(keys.keyCode);
+            keys.preventDefault();
             selectEmojiWithKey(keys.keyCode, getEmojiTd(focused));
         }
-    } else if(keys.keyCode == 16){
+    } else if(keys.keyCode == 32){ //spacebar
         var focused = document.activeElement;
         if(focused.attributes.getNamedItem("aria-label") !== null
             && focused.attributes.getNamedItem("aria-label").textContent == "Choisir un emoji"){
+            keys.preventDefault();
             focused.click();
             focused.focus();
+        }
+    } else if(keys.keyCode == 13){ //enter
+        var focused = document.activeElement;
+        if(focused.attributes.getNamedItem("aria-label") !== null
+            && focused.attributes.getNamedItem("aria-label").textContent == "Choisir un emoji"){
+            keys.preventDefault();
+            openEmojiForCurrentConversation();
         }
     }
 }
@@ -116,17 +127,17 @@ function getEmojiTr(emojiFocused){
 
 function selectEmojiWithKey(keyCode, emojiFocusedTd){
     switch(keyCode){
-        case 81: // Q
+        case 37: // Q
             console.log("wtf?");
             getPreviousEmoji(emojiFocusedTd);
             break;
-        case 90: // Z
+        case 38: // Z
             getUpperEmoji(emojiFocusedTd);
             break;
-        case 68: // D
+        case 39: // D
             getNextEmoji(emojiFocusedTd);
             break;
-        case 83: // S
+        case 40: // S
             getLowerEmoji(emojiFocusedTd);
             break;
     }
