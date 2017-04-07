@@ -4,8 +4,6 @@
 document.body.addEventListener('keydown', doc_keyDown);
 
 function doc_keyDown(keys) {
-    //keys.preventDefault();
-    console.log(keys);
     if (keys.altKey && keys.keyCode == 69) {
         keys.preventDefault();
         openEmojiForCurrentConversation();
@@ -37,7 +35,6 @@ function doc_keyDown(keys) {
 function openEmojiForCurrentConversation(){
 
     var focused = document.activeElement;
-    //console.log(focused);
     var focusedConversation = getFocusedConversationListener(focused);
     if (focusedConversation !== null) {
         clickOnEmojisRef(focusedConversation);
@@ -46,9 +43,9 @@ function openEmojiForCurrentConversation(){
 
 function getFocusedConversationListener(focused){
 
-    var conversations = document.body.getElementsByClassName("fbNubFlyout");
+    var conversations = ementsByClassName("fbNubFlyout");
     var focusedConversation = null;
-
+    document.body.getEl
     for(var i = 0; i < conversations.length; i++){
         var conversation = conversations.item(i);
         if (conversation.contains(focused)) {
@@ -86,6 +83,10 @@ function clickOnRecentEmojis(){
         }
     }
     f();
+}
+
+function getEmojiSelectedTheme(){
+    //flemme
 }
 
 function selectFirstEmojiTd(){
@@ -128,7 +129,6 @@ function getEmojiTr(emojiFocused){
 function selectEmojiWithKey(keyCode, emojiFocusedTd){
     switch(keyCode){
         case 37: // Q
-            console.log("wtf?");
             getPreviousEmoji(emojiFocusedTd);
             break;
         case 38: // Z
@@ -145,7 +145,6 @@ function selectEmojiWithKey(keyCode, emojiFocusedTd){
 
 function getPreviousEmoji(emojiFocusedTd){
     var previousEmoji = emojiFocusedTd.previousElementSibling;
-    console.log(previousEmoji);
     if(previousEmoji !== null) previousEmoji.querySelector('[aria-label="Choisir un emoji"]').focus();
     return previousEmoji;
 }
