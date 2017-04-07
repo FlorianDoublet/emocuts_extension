@@ -8,8 +8,7 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "https://www.facebook.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_end"         // pay attention to this line
