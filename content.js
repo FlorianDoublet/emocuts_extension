@@ -2,9 +2,11 @@
 //document.body.style.background = 'yellow';
 // register the handler
 document.body.addEventListener('keydown', doc_keyDown);
+var lastClickedEmojiTheme = null;
+
 
 function doc_keyDown(keys) {
-    if (keys.altKey && keys.keyCode == 69) {
+    if (keys.metaKey && keys.keyCode == 69) {
         keys.preventDefault();
         openEmojiForCurrentConversation();
     } else if (keys.keyCode >= 37 &&  keys.keyCode <= 40){
@@ -29,6 +31,13 @@ function doc_keyDown(keys) {
             keys.preventDefault();
             openEmojiForCurrentConversation();
         }
+    } else if(keys.keyCode == 9){
+        var focused = document.activeElement;
+        if(focused.attributes.getNamedItem("aria-label") !== null
+            && focused.attributes.getNamedItem("aria-label").textContent == "Choisir un emoji"){
+            keys.preventDefault();
+            emojiThemeActions(keys);
+        }
     }
 }
 
@@ -43,9 +52,9 @@ function openEmojiForCurrentConversation(){
 
 function getFocusedConversationListener(focused){
 
-    var conversations = ementsByClassName("fbNubFlyout");
+    var conversations = document.body.getElementsByClassName("fbDockChatTabFlyout");
     var focusedConversation = null;
-    document.body.getEl
+
     for(var i = 0; i < conversations.length; i++){
         var conversation = conversations.item(i);
         if (conversation.contains(focused)) {
@@ -59,7 +68,7 @@ function getFocusedConversationListener(focused){
 function clickOnEmojisRef(focusedConversation){
     var emoji_href = focusedConversation.querySelector('[title="Choisir un emoji"]');
     if (emoji_href !== null){
-        var emojisNotAlreadyOpen = document.body.querySelector('[data-tooltip-content="Envoyés récemment"]') === null;
+        var emojisNotAlreadyOpen = getRecentEmoji() === null;
         emoji_href.click();
         if(emojisNotAlreadyOpen){
             clickOnRecentEmojis();
@@ -68,48 +77,65 @@ function clickOnEmojisRef(focusedConversation){
 }
 
 function clickOnRecentEmojis(){
-    var recentEmojis = null;
 
-    var i = 0, howManyTimes = 50;
-    function f() {
-        recentEmojis = document.body.querySelector('[data-tooltip-content="Envoyés récemment"]');
-        i++;
-        if( i < howManyTimes && recentEmojis === null){
-            setTimeout( f, 50 );
-        } else if(recentEmojis !== null){
+    var checkExist = setInterval(function() {
+        var recentEmojis = getRecentEmoji();
+        if (recentEmojis !== null) {
+            clearInterval(checkExist);
+            lastClickedEmojiTheme = recentEmojis;
             recentEmojis = recentEmojis.firstElementChild;
             recentEmojis.click();
-            selectFirstEmojiTd();
+            selectFirstEmoji();
         }
-    }
-    f();
+    }, 10); // check every 10ms
 }
 
-function getEmojiSelectedTheme(){
-    //flemme
+function getRecentEmoji(){
+    return document.body.querySelector('[data-tooltip-content="Envoyés récemment"]');
 }
 
-function selectFirstEmojiTd(){
-
-    var x = 0, howManyTimes = 2;
-    function f() {
-
-        x++;
-        if( x < howManyTimes ){
-            setTimeout( f, 50 );
+function emojiThemeActions(keys){
+    currentTheme = lastClickedEmojiTheme;
+    if(keys.keyCode == 9){
+        var newTheme = null;
+        if(keys.shiftKey){
+            newTheme = clickPreviousEmojiTheme(currentTheme);
         } else {
-            var emojiNode = document.body.querySelector('[aria-label="Choisir un emoji"]');
-            emojiNode.focus();
-            var td = emojiNode;
-
-            var i = 1;
-            do {
-                td = td.parentNode;
-                i++;
-            } while(td.tagName != "TD");
+            newTheme = clickNextEmojiTheme(currentTheme);
         }
+        if(newTheme !== null){
+            newTheme.firstElementChild.click();
+            lastClickedEmojiTheme = newTheme;
+            selectFirstEmoji();
+        }
+
     }
-    f();
+}
+
+function clickNextEmojiTheme(currentTheme){
+    var nextTheme = currentTheme.nextElementSibling;
+    if(nextTheme !== null) nextTheme.click();
+    return nextTheme;
+}
+
+function clickPreviousEmojiTheme(currentTheme){
+    var previousTheme = currentTheme.previousElementSibling;
+    if(previousTheme !== null) previousTheme.click();
+    return previousTheme;
+}
+
+function selectFirstEmoji(){
+
+    var conversationDock = getFocusedConversationListener(document.activeElement);
+    var checkExist = setInterval(function() {
+        var emojisDiv = conversationDock.getElementsByClassName('uiContextualLayer uiContextualLayerAboveRight');
+        var emojiNode = $(emojisDiv).find('[aria-label="Choisir un emoji"]').first();
+        if (emojiNode !== null){
+            clearInterval(checkExist);
+            emojiNode.focus();
+        }
+    }, 10); // check every 10ms
+
 }
 
 function getEmojiTd(emojiFocused){
