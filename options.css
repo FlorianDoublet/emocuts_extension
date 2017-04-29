@@ -1,0 +1,52 @@
+body {
+    padding: 10px;
+}
+
+span.section{
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+
+.container-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.container{
+    display: flex;
+}
+
+label.direction{
+    width: 30px;
+    display: inline-block;
+}
+
+label.theme-select{
+    width: 100px;
+    display: inline-block;
+}
+
+input.shortcut{
+    width: 150px;
+    text-align:center;
+}
+
+div#status-save{
+    background-color: yellowgreen;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+div#status-restore{
+    background-color: dodgerblue;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+input.edited{
+    color: forestgreen;
+}

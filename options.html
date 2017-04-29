@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Test Extension Options</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="options.css" media="screen" />
+    <script src="jquery-3.2.0.min.js"></script>
+    <script src="require.js"></script>
+</head>
+
+<body>
+    <p>
+        <div id="status-save" hidden="true">Options sauvegardée.</div>
+         <div id="status-restore" hidden="true">Options restorées aux valeurs par défauts.</div>
+    </p>
+    <p>
+        <span class="section" >Ouvrir le panel des emojis:</span>
+        <br/>
+        <div class="container-column">
+            <input type="text" id="open-emojis" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+        </div>
+    </p>
+    <p>
+        <span class="section" >Navigation entre les emojis:</span>
+        <br/>
+        <div class="container-column">
+            <div>
+                <input type="text" id="up" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                <label class="direction">&uarr;</label>
+            </div>
+            <div>
+                <input type="text" id="right" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                <label class="direction">&larr;</label>
+            </div>
+            <div>
+                <input type="text" id="left" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                <label class="direction">&rarr;</label>
+            </div>
+            <div>
+                <input type="text" id="down" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                <label class="direction">&darr;</label>
+            </div>
+        </div>
+
+
+    </p>
+    <p>
+        <span class="section" >Navigation entre les thèmes:</span>
+        <br/>
+        <div class="container-column">
+            <label class="theme-select">Thème suivant</label>
+            <input type="text" id="next" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+            <br/>
+            <label class="theme-select">Thème précédent</label>
+            <input type="text" id="previous" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+        </div>
+    </p>
+
+
+    <button id="save">Sauvegarder</button>
+    <button id="restore">Restorer les paramètres</button>
+    <script src="options.js"></script>
+</body>
+</html>

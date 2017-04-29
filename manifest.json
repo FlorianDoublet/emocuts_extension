@@ -3,15 +3,21 @@
   "description": "Permit emojis shortcuts to access to emojis into a conversation",
   "version": "0.1",
   "permissions": [
-    "tabs","<all_urls>"
+    "tabs",
+    "<all_urls>",
+    "storage"
   ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "content_scripts": [
     {
       "matches": [
         "https://www.facebook.com/*"
       ],
-      "js": ["content.js", "jquery-3.2.0.min.js"],
-      "run_at": "document_end"         // pay attention to this line
+      "js": ["require.js", "shortcut_handler.js", "content.js","jquery-3.2.0.min.js"],
+      "run_at": "document_end"
     }
   ],
   "manifest_version":2
