@@ -1,7 +1,7 @@
 {
-  "name": "Facebook emojis shortcuts",
-  "description": "Permit emojis shortcuts to access to emojis into a conversation",
-  "version": "0.1",
+  "name": "Emocuts",
+  "description": "Permit d'utiliser le panel d'émojis de facebook.com au clavier.",
+  "version": "1.0",
   "permissions": [
     "tabs",
     "<all_urls>",
@@ -16,7 +16,7 @@
       "matches": [
         "https://www.facebook.com/*"
       ],
-      "js": ["require.js", "shortcut_handler.js", "content.js","jquery-3.2.0.min.js"],
+      "js": ["jquery-3.2.0.min.js", "shortcut_handler.js", "languages_handler.js","content.js"],
       "run_at": "document_end"
     }
   ],
