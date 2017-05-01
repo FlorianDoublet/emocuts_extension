@@ -19,7 +19,7 @@ const PAGE_ACCESS = {
 
 var language;
 
-chrome.storage.sync.get({
+chrome.storage.local.get({
     defaultLang: 'fr'
 }, function(items) {
     language = items.defaultLang;

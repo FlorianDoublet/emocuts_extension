@@ -15,33 +15,49 @@ var previous_sh;
 var add_sh;
 var validate_sh;
 
-chrome.storage.sync.get({
-    openEmojis_sh: defaults.openEmojis,
-    up_sh: defaults.up,
-    down_sh: defaults.down,
-    right_sh: defaults.right,
-    left_sh: defaults.left,
-    next_sh: defaults.next,
-    previous_sh: defaults.previous,
-    validate_sh: defaults.validate,
-    add_sh: defaults.add
+load_shortcuts();
 
-}, function(items) {
-    openEmojis_sh = items.openEmojis_sh;
-    up_sh = items.up_sh;
-    down_sh = items.down_sh;
-    right_sh = items.right_sh;
-    left_sh = items.left_sh;
-    next_sh = items.next_sh;
-    previous_sh = items.previous_sh;
-    add_sh = items.add_sh;
-    validate_sh = items.validate_sh;
-});
+function load_shortcuts(){
+    chrome.storage.local.set({
+        shortcuts_changed: false
+    }, function () {
+    });
 
+    chrome.storage.local.get({
+        openEmojis_sh: defaults.openEmojis,
+        up_sh: defaults.up,
+        down_sh: defaults.down,
+        right_sh: defaults.right,
+        left_sh: defaults.left,
+        next_sh: defaults.next,
+        previous_sh: defaults.previous,
+        validate_sh: defaults.validate,
+        add_sh: defaults.add
+
+    }, function(items) {
+        openEmojis_sh = items.openEmojis_sh;
+        up_sh = items.up_sh;
+        down_sh = items.down_sh;
+        right_sh = items.right_sh;
+        left_sh = items.left_sh;
+        next_sh = items.next_sh;
+        previous_sh = items.previous_sh;
+        add_sh = items.add_sh;
+        validate_sh = items.validate_sh;
+    });
+}
 
 function doc_keyDown(keys) {
 
     const pushed_keys = shortcutHandler.eventKeyToString(keys).pushed_keys;
+
+    chrome.storage.local.get({
+        shortcuts_changed: false
+    }, function(items){
+        if(items.shortcuts_changed){
+            load_shortcuts();
+        }
+    });
     if(shortcutEq(pushed_keys, openEmojis_sh)){
         keys.preventDefault();
         openEmojiForCurrentConversation();

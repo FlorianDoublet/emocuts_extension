@@ -3,11 +3,15 @@ document.getElementById('save').addEventListener('click', save_options);
 document.getElementById('restore').addEventListener('click', restore_defaults);
 document.body.addEventListener('keydown', doc_keyDown);
 
+setTimeout(function() {
+    document.getElementById('save').focus();
+}, 100);
+
 const defaults = shortcutHandler.defaultShortcuts;
-// Saves options to chrome.storage.sync.
+// Saves options to chrome.storage.local.
 function save_options() {
 
-    chrome.storage.sync.get({
+    chrome.storage.local.get({
         preOpenEmojis: defaults.openEmojis,
         preUp: defaults.up,
         preDown: defaults.down,
@@ -17,14 +21,15 @@ function save_options() {
         prePrevious: defaults.previous
 
     }, function(items) {
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             openEmojis_sh: items.preOpenEmojis,
             up_sh: items.preUp,
             down_sh: items.preDown,
             right_sh: items.preRight,
             left_sh: items.preLeft,
             nex_sh: items.preNext,
-            previous_sh: items.prePrevious
+            previous_sh: items.prePrevious,
+            shortcuts_changed: true
         }, function () {
             // Update status to let user know options were saved.
             removeEditedInputsClass();
@@ -40,18 +45,14 @@ function save_options() {
 }
 
 function removeEditedInputsClass(){
-    var editedInputs = document.getElementsByClassName('edited');
-    for(var i = 0; i < editedInputs.length; i++)
-    {
-        $(editedInputs.item(i)).removeClass('edited');
-    }
+    $('.edited').removeClass("edited");
 }
 
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
 
-    chrome.storage.sync.get({
+    chrome.storage.local.get({
         openEmojis_sh: defaults.openEmojis,
         up_sh: defaults.up,
         down_sh: defaults.down,
@@ -85,38 +86,38 @@ function doc_keyDown(keys){
 function savePreOptions(elementId, map){
     switch(elementId){
         case 'up':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preUp: map
             });
 
             break;
         case 'down':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preDown: map
             });
             break;
         case 'right':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preRight: map
             });
             break;
         case 'left':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preLeft: map
             });
             break;
         case 'open-emojis':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preOpenEmojis: map
             });
             break;
         case 'next':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 preNext: map
             });
             break;
         case 'previous':
-            chrome.storage.sync.set({
+            chrome.storage.local.set({
                 prePrevious: map
             });
             break;
@@ -124,7 +125,7 @@ function savePreOptions(elementId, map){
 }
 
 function restore_defaults(){
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         openEmojis_sh: defaults.openEmojis,
         up_sh: defaults.up,
         down_sh: defaults.down,
@@ -138,7 +139,8 @@ function restore_defaults(){
         preLeft: defaults.left,
         preRight: defaults.right,
         preNext: defaults.next,
-        prePrevious: defaults.previous
+        prePrevious: defaults.previous,
+        shortcuts_changed: true
         }, function () {
             // Update status to let user know options were restored.
             restore_options();

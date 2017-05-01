@@ -1,15 +1,59 @@
 body {
     padding: 10px;
+    background-color: #3b5998;
+    font-family: "Lucida Grande";
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+}
+p {
+    text-align: left;
+}
+
+div.main{
+    background-color: white;
+    width: 275px;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: auto;
+}
+div.inner{
+    display: inline-block;
+    margin: 0 auto;
+    text-align:center;
+}
+
+div.buttons{
+    display: inline-block;
+    margin: 0 auto;
+    padding-bottom: 5px;
+}
+
+div.fb-blue{
+    background-color: #3b5998;
+    border-radius: 5px;
+    height: 25px;
+    display: flex;
+    align-items: center;
 }
 
 span.section{
     font-weight: bold;
-    border-bottom: 1px solid black;
+    color: white;
+    margin: 15px;
 }
 
 .container-column{
     display: flex;
     flex-direction: column;
+    text-align: left;
+    align-items: center;
 }
 
 .container{
@@ -17,18 +61,23 @@ span.section{
 }
 
 label.direction{
-    width: 30px;
+    width: 15px;
     display: inline-block;
 }
 
 label.theme-select{
-    width: 100px;
+    width: 150px;
     display: inline-block;
 }
 
 input.shortcut{
     width: 150px;
     text-align:center;
+    flex: none;
+}
+
+input.px-130{
+    width: 130px;
 }
 
 div#status-save{

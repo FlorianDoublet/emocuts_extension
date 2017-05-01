@@ -1,12 +1,20 @@
 {
-  "name": "Emocuts",
-  "description": "Permit d'utiliser le panel d'émojis de facebook.com au clavier.",
+  "name": "EmoCuts",
+  "description": "Permet d'utiliser le panel d'émojis de facebook.com au clavier.",
   "version": "1.0",
+  "icons": {
+    "700": "emocuts_icon.png"
+  },
+  "browser_action": {
+    "default_icon": "emocuts_icon.png",
+    "default_popup": "options.html"
+  },
   "permissions": [
     "tabs",
     "<all_urls>",
     "storage"
   ],
+  "web_accessible_resources": ["emocuts_icon.png"],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
