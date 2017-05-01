@@ -102,16 +102,12 @@ function openEmojiForCurrentConversation() {
 function getFocusedConversationListener(focused) {
 
     var conversations = document.body.getElementsByClassName(PAGE_ACCESS.dock_conversation[language]);
-    var focusedConversation = null;
-
     for (var i = 0; i < conversations.length; i++) {
         var conversation = conversations.item(i);
         if (conversation.contains(focused)) {
-            focusedConversation = conversation;
-            return focusedConversation;
+            return conversation;
         }
     }
-    return focusedConversation;
 }
 
 function clickOnEmojisRef(focusedConversation) {

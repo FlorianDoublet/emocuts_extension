@@ -5,13 +5,13 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="options.css" media="screen" />
     <script src="jquery-3.2.0.min.js"></script>
-    <script src="shortcut_handler.js"></script>
+    <script src="../handlers/shortcut_handler.js"></script>
 </head>
 
 <body>
     <h1>EmoCuts</h1>
     <div class="main">
-        <img id="logo" src="emocuts_icon.png" width="50" height="50">
+        <img id="logo" src="../images/emocuts_icon.png" width="50" height="50">
         <p>
             <div id="status-save" hidden="true">Options sauvegardée.</div>
             <div id="status-restore" hidden="true">Options restorées aux valeurs par défauts.</div>
@@ -20,13 +20,21 @@
             <p>
                 <div class="inner">
                     <div class="fb-blue">
-                        <span class="section" >Ouvrir le panel des emojis</span>
+                        <span class="section" >Menu des touches spéciales</span>
                     </div>
                     <br/>
-                     <div class="container-column">
+                    <div class="container-column">
+                        <label class="theme-select">Ouvrir le panel emojis</label>
                         <input type="text" id="open-emojis" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                        <br/>
+                        <label class="theme-select">Ajouter l'émojis</label>
+                        <input type="text" id="add" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
+                        <br/>
+                        <label class="theme-select">Valider</label>
+                        <input type="text" id="validate" class="shortcut" placeholder="Saisissez vôtre raccourci" readonly/>
                     </div>
                 </div>
+
             </p>
             <p>
                 <div class="inner">

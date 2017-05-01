@@ -4,7 +4,7 @@ document.getElementById('restore').addEventListener('click', restore_defaults);
 document.body.addEventListener('keydown', doc_keyDown);
 
 setTimeout(function() {
-    document.getElementById('save').focus();
+    $(document.activeElement).blur();
 }, 100);
 
 const defaults = shortcutHandler.defaultShortcuts;
@@ -18,7 +18,9 @@ function save_options() {
         preLeft: defaults.left,
         preRight: defaults.right,
         preNext: defaults.next,
-        prePrevious: defaults.previous
+        prePrevious: defaults.previous,
+        preAdd: defaults.add,
+        preValidate: defaults.validate
 
     }, function(items) {
         chrome.storage.local.set({
@@ -29,6 +31,8 @@ function save_options() {
             left_sh: items.preLeft,
             nex_sh: items.preNext,
             previous_sh: items.prePrevious,
+            add_sh: items.preAdd,
+            validate_sh: items.preValidate,
             shortcuts_changed: true
         }, function () {
             // Update status to let user know options were saved.
@@ -59,7 +63,9 @@ function restore_options() {
         right_sh: defaults.right,
         left_sh: defaults.left,
         next_sh: defaults.next,
-        previous_sh: defaults.previous
+        previous_sh: defaults.previous,
+        add_sh: defaults.add,
+        validate_sh: defaults.validate
 
     }, function(items) {
         document.getElementById('up').value = shortcutHandler.eventKeyToString(items.up_sh).event_to_string;
@@ -69,6 +75,9 @@ function restore_options() {
         document.getElementById('next').value = shortcutHandler.eventKeyToString(items.next_sh).event_to_string;
         document.getElementById('previous').value = shortcutHandler.eventKeyToString(items.previous_sh).event_to_string;
         document.getElementById('open-emojis').value = shortcutHandler.eventKeyToString(items.openEmojis_sh).event_to_string;
+        document.getElementById('add').value = shortcutHandler.eventKeyToString(items.add_sh).event_to_string;
+        document.getElementById('validate').value = shortcutHandler.eventKeyToString(items.validate_sh).event_to_string;
+
     });
 }
 
@@ -119,6 +128,16 @@ function savePreOptions(elementId, map){
         case 'previous':
             chrome.storage.local.set({
                 prePrevious: map
+            });
+            break;
+        case 'add':
+            chrome.storage.local.set({
+                preAdd: map
+            });
+            break;
+        case 'validate':
+            chrome.storage.local.set({
+                preAdd: map
             });
             break;
     }
