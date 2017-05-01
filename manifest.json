@@ -1,7 +1,7 @@
 {
-  "name": "EmoCuts",
+  "name": "Facebook EmoCuts",
   "description": "Permet d'utiliser le panel d'émojis de facebook.com au clavier.",
-  "version": "1.0",
+  "version": "1.1",
   "icons": {
     "128": "images/emocuts_icon.png"
   },

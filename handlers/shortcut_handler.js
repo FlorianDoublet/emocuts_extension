@@ -89,13 +89,24 @@ function eventKeyToString (e) {
 }
 
 
-const defaultOpenEmojisShortcut = { // Meta + E
+const defaultOpenEmojisShortcutMac = { // Meta + E
     keyCode: 69,
     metaKey: true,
     ctrlKey: false,
     altKey: false,
     shiftKey: false
 };
+
+const defaultOpenEmojisShortcutWindows = { // Alt + E
+    keyCode: 69,
+    metaKey: false,
+    ctrlKey: false,
+    altKey: true,
+    shiftKey: false
+};
+
+const defaultOpenEmojisShortcut = (navigator.appVersion.indexOf("Mac")!=-1) ? defaultOpenEmojisShortcutMac : defaultOpenEmojisShortcutWindows;
+
 
 const defaultUpShortcut = { // UP ARROW
     keyCode: 38,
